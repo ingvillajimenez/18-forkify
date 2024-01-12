@@ -5,13 +5,17 @@ import { getJSON } from "./helpers.js";
 // Refactoring for MVC
 export const state = {
   recipe: {},
+  search: {
+    query: "",
+    results: [],
+  },
 };
 
 export const loadRecipe = async function (id) {
   ///////////////////////////////////////
   // Loading a Recipe from API
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await getJSON(`${API_URL}${id}`);
 
     const { recipe } = data.data;
     state.recipe = {
@@ -27,6 +31,29 @@ export const loadRecipe = async function (id) {
     console.log(state.recipe);
   } catch (err) {
     // Temp error handling
+    console.error(`${err} 💥💥💥💥`);
+    throw err;
+  }
+};
+
+///////////////////////////////////////
+// Implementing Search Results - Part 1
+export const loadSearchResults = async function (query) {
+  try {
+    state.search.query = query;
+
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    console.log(data);
+
+    state.search.results = data.data.recipes.map((rec) => {
+      return {
+        id: rec.id,
+        image: rec.image_url,
+        publisher: rec.publisher,
+        title: rec.title,
+      };
+    });
+  } catch (err) {
     console.error(`${err} 💥💥💥💥`);
     throw err;
   }
