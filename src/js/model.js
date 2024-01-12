@@ -1,3 +1,6 @@
+import { API_URL } from "./config.js";
+import { getJSON } from "./helpers.js";
+
 ///////////////////////////////////////
 // Refactoring for MVC
 export const state = {
@@ -8,13 +11,7 @@ export const loadRecipe = async function (id) {
   ///////////////////////////////////////
   // Loading a Recipe from API
   try {
-    const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-      // "https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bcc40"
-    );
-    const data = await res.json();
-
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+    const data = await getJSON(`${API_URL}/${id}`);
 
     const { recipe } = data.data;
     state.recipe = {
@@ -29,6 +26,7 @@ export const loadRecipe = async function (id) {
     };
     console.log(state.recipe);
   } catch (err) {
-    alert(err);
+    // Temp error handling
+    console.error(`${err} 💥💥💥💥`);
   }
 };
