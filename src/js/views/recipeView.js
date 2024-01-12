@@ -36,6 +36,16 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
+  ///////////////////////////////////////
+  // Event Handlers in MVC: Publisher-Subscriber Pattern
+  addHandlerRender(handler) {
+    ///////////////////////////////////////
+    // Listening For hashchange and load Events
+    ["hashchange", "load"].forEach((ev) =>
+      window.addEventListener(ev, handler)
+    );
+  }
+
   #generateMarkup() {
     return `
       <figure class="recipe__fig">
