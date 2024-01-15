@@ -71,9 +71,20 @@ const controlPagination = function (goToPage) {
 };
 
 ///////////////////////////////////////
+// Updating Recipe Servings
+const controlServings = function (newServings) {
+  // Update de recipe servings (in state)
+  model.updateServings(newServings);
+
+  // Update the recipe view
+  recipeView.render(model.state.recipe);
+};
+
+///////////////////////////////////////
 // Event Handlers in MVC: Publisher-Subscriber Pattern
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 };
