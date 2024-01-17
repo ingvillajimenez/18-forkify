@@ -2029,9 +2029,9 @@ const getSearchResultsPage = function(page = state.search.page) {
 const updateServings = function(newServings) {
     state.recipe.ingredients.forEach((ing)=>{
         ing.quantity = ing.quantity * newServings / state.recipe.servings;
-        // newQt = oldQt * newServings / oldServings = 2 * 8 / 4 = 4
-        state.recipe.servings = newServings;
+    // newQt = oldQt * newServings / oldServings = 2 * 8 / 4 = 4
     });
+    state.recipe.servings = newServings;
 };
 ///////////////////////////////////////
 // Storing Bookmarks With localStorage
@@ -2359,7 +2359,18 @@ class View {
     _data;
     ///////////////////////////////////////
     // Rendering the Recipe
-    render(data, render = true) {
+    ///////////////////////////////////////
+    // Wrapping Up: Final Considerations
+    // https://jsdoc.app/
+    /**
+   * Render the received object to the DOM
+   * @param {Object | Object[]} data The data to be rendered (e.g. recipe)
+   * @param {boolean} [render=true] If false, create markup string instead of rendering to the DOM
+   * @returns {undefined | string} A markup string is returned if render=false
+   * @this {Object} View instance
+   * @author Juan Villa
+   * @todo Finish implementation
+   */ render(data, render = true) {
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
