@@ -12,11 +12,6 @@ import addRecipeView from "./views/addRecipeView.js";
 import "core-js/stable"; // Polyfilling other JS features
 import "regenerator-runtime/runtime"; // Polyfilling async functions
 
-// if (module.hot) {
-//   // hot module reloading from parcel so that state remains
-//   module.hot.accept();
-// }
-
 // https://forkify-api.herokuapp.com/v2
 
 const controlRecipes = async function () {
@@ -62,7 +57,6 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // Render results
-    // resultsView.render(model.state.search.results);
     resultsView.render(model.getSearchResultsPage());
 
     // Render initial pagination bottons
@@ -87,7 +81,6 @@ const controlServings = function (newServings) {
   model.updateServings(newServings);
 
   // Update the recipe view
-  // recipeView.render(model.state.recipe);
   recipeView.update(model.state.recipe);
 };
 
@@ -142,10 +135,6 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
-const newFeature = function () {
-  console.log("Welcome to the application!");
-};
-
 ///////////////////////////////////////
 // Event Handlers in MVC: Publisher-Subscriber Pattern
 const init = function () {
@@ -156,6 +145,5 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  newFeature();
 };
 init();
